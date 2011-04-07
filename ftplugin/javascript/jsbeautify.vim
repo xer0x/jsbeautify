@@ -3,7 +3,10 @@ if &cp || exists("loaded_jsbeautify")
 endif
 let loaded_jsbeautify = 3
 
-
+" set to 1 to pass /*jslint white: true */
+if !exists("g:Jsbeautify_jslint_whitespace")
+  let g:Jsbeautify_jslint_whitespace = 0
+endif
 
 function! s:trim_output()
 	while len(s:output) > 0 && (s:output[len(s:output)-1] == " " || s:output[len(s:output)-1] == s:indent_string)
@@ -354,6 +357,8 @@ function! g:Jsbeautify()
 					call s:print_space()
 				elseif s:in_array(s:last_word, s:line_starters)
 					call s:print_space()
+        elseif s:last_word == "function"  && g:Jsbeautify_jslint_whitespace == 1
+          call s:print_space()
 				endif
 
 				call s:print_token()
@@ -444,6 +449,7 @@ function! g:Jsbeautify()
 					elseif (s:last_type == "TK_START_EXPR" || s:last_text == "=" || s:last_text == ",") && s:token_text == "function"
 						" no need to force newline on "function":
 						" DONOTHINT
+            call s:print_space()
 					elseif s:last_type == "TK_WORD" && (s:last_text == "return" || s:last_text == "throw")
 						" no newline between "return nnn"
 						call s:print_space()
