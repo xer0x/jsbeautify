@@ -1,9 +1,9 @@
-This fork of vim-scripts/jsbeautify has a couple small changes.
-
-
-a plugin to format your javascript souce code
+A plugin to format your javascript souce code
 
 It can be helpful when reformatting JSON snippets and compressed javascript.
+
+
+This fork of vim-scripts/jsbeautify has a couple small changes.
 
 
 A js version can be found at:
