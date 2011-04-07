@@ -1,13 +1,19 @@
-This is a mirror of http://www.vim.org/scripts/script.php?script_id=2727
+This fork of vim-scripts/jsbeautify has a couple small changes.
 
 a plugin to format your javascript souce code
+
 
 A js version can be found at:
 http://jsbeautifier.org/
 
-I just translated it into vimscript, it works at a low performance:)
 
 usage:
   <leader>ff
-or 
+or
   bind the g:Jsbeautify() function to any short key you like
+
+Changes:
+It is filetype plugin so it only loads for javascript files. This might not be ideal if you want to reformat .json files or use the javascript.jquery filetype.
+
+
+Thanks to aj3423 fork creating the vimscript version of this brilliant reformatter.
