@@ -1,11 +1,11 @@
 if &cp || exists("loaded_jsbeautify")
-    finish
+		finish
 endif
 let loaded_jsbeautify = 3
 
 " set to 1 to pass /*jslint white: true */
 if !exists("g:Jsbeautify_jslint_whitespace")
-  let g:Jsbeautify_jslint_whitespace = 0
+	let g:Jsbeautify_jslint_whitespace = 0
 endif
 
 function! s:trim_output()
@@ -102,7 +102,7 @@ function! s:get_next_token()
 	endwhile
 
 	let wanted_newline = 0
-	
+
 	if s:opt_preserve_newlines
 		if n_newlines > 1
 			for i in [0, 1] 
@@ -130,7 +130,7 @@ function! s:get_next_token()
 			"let t = get_next_token(s:parser_pos)
 			"let c .= sign . t[0]
 			"return [c, "TK_WORD"]
-	   " endif
+		"endif
 
 		if c == "in"
 			return [c, "TK_OPERATOR"]
@@ -220,7 +220,6 @@ function! s:get_next_token()
 		let resulting_string .= sep
 
 		if sep == "/"
-			
 			while s:parser_pos < len(s:input) && s:in_array(s:input[s:parser_pos], s:wordchar)
 				let resulting_string .= s:input[s:parser_pos]
 				let s:parser_pos += 1
@@ -250,7 +249,7 @@ function! s:get_next_token()
 		endif
 	endif
 
-	if c == "<" && s:input[s:parser_pos-1 : s:parser_pos+3] == "<!--"				
+	if c == "<" && s:input[s:parser_pos-1 : s:parser_pos+3] == "<!--"
 		let s:parser_pos += 3
 		return ["<!--", "TK_COMMENT"]
 	endif
@@ -278,8 +277,6 @@ function! s:get_next_token()
 		return [c, "TK_UNKNOWN"]
 	endif
 
-	
-
 endfunction
 
 function! s:is_js()
@@ -301,7 +298,7 @@ function! g:Jsbeautify()
 
 	let s:if_line_flag = 0
 	"--------------------------------
-	
+
 	let s:indent_string = ""
 	while s:opt_indent_size > 0
 		let s:indent_string .= s:opt_indent_char
@@ -313,7 +310,7 @@ function! g:Jsbeautify()
 	let lines = getline(1, "$")
 	let s:input = join(lines, "\n")
 	"let s:input = a:js_source_text
-	
+
 	let s:last_word = "" "last 'TK_WORD' passed
 	let s:last_type = "TK_START_EXPR" "last token type
 	let s:last_text = "" "last token text
@@ -326,7 +323,7 @@ function! g:Jsbeautify()
 	let s:whitespace = ["\n", "\r", "\t", " "]
 	let s:wordchar = split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$", '\zs')
 	let s:digits = split("0123456789", '\zs')
-	
+
 	"<!-- is a special case (ok, it"s a minor hack actually)
 	let s:punct = split("+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |= ::", " ")
 
@@ -344,7 +341,7 @@ function! g:Jsbeautify()
 		if s:token_type == "TK_EOF"
 			break
 		endif
-		
+
 		try
 			if s:token_type == "TK_START_EXPR"
 				let s:var_line = 0
@@ -357,8 +354,8 @@ function! g:Jsbeautify()
 					call s:print_space()
 				elseif s:in_array(s:last_word, s:line_starters)
 					call s:print_space()
-        elseif s:last_word == "function"  && g:Jsbeautify_jslint_whitespace == 1
-          call s:print_space()
+				elseif s:last_word == "function"	&& g:Jsbeautify_jslint_whitespace == 1
+					call s:print_space()
 				endif
 
 				call s:print_token()
@@ -449,7 +446,7 @@ function! g:Jsbeautify()
 					elseif (s:last_type == "TK_START_EXPR" || s:last_text == "=" || s:last_text == ",") && s:token_text == "function"
 						" no need to force newline on "function":
 						" DONOTHINT
-            call s:print_space()
+						call s:print_space()
 					elseif s:last_type == "TK_WORD" && (s:last_text == "return" || s:last_text == "throw")
 						" no newline between "return nnn"
 						call s:print_space()
@@ -487,7 +484,7 @@ function! g:Jsbeautify()
 			elseif s:token_type == "TK_SEMICOLON"
 				call s:print_token()
 				let s:var_line = 0
-			
+
 			elseif s:token_type == "TK_STRING"
 				if s:last_type == "TK_START_BLOCK" || s:last_type == "TK_END_BLOCK" || s:last_type == "TK_SEMICOLON"
 					call s:print_newline(1)
@@ -558,8 +555,16 @@ function! g:Jsbeautify()
 						let start_delim = 0
 						let end_delim = 0
 					endif
+				elseif s:token_text == "!!" || s:token_text == "!"
+					if s:last_type == "TK_START_EXPR"
+						" special case handling: if (!a)
+						let start_delim = 0
+						let end_delim = 0
+					else 
+						let start_delim = 0
+						let end_delim = 1
+					endif
 				elseif s:token_text == "!" && s:last_type == "TK_START_EXPR"
-					" special case handling: if (!a)
 					let start_delim = 0
 					let end_delim = 0
 				elseif s:last_type == "TK_OPERATOR"
@@ -598,7 +603,7 @@ function! g:Jsbeautify()
 				call s:print_newline(1)
 				call s:print_token()
 				call s:print_newline(1)
-				
+
 			elseif s:token_type == "TK_COMMENT"
 
 				"call s:print_newline(1)
@@ -619,7 +624,7 @@ function! g:Jsbeautify()
 		let s:last_type = s:token_type
 		let s:last_text = s:token_text
 	endwhile
-	
+
 	let ret = join(s:output, "")
 	:g/.*/d
 	let @0 = ret
