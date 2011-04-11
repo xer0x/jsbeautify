@@ -1,5 +1,5 @@
 jsbeautify.vim
---------------
+==============
 
 A plugin to format your javascript souce code
 
@@ -9,11 +9,12 @@ It can be helpful when reformatting JSON snippets and compressed javascript.
 This fork of vim-scripts/jsbeautify has a couple small changes.
 
 
-A js version can be found at:
+A JS version can be found at:  
 [jsbeautifier.org](http://jsbeautifier.org/)
 
 
 usage:
+------
   <leader>ff
 or
   bind the g:Jsbeautify() function to any short key you like
