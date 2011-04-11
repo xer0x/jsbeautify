@@ -6,7 +6,7 @@ A plugin to format your javascript souce code. It can be helpful when reformatti
 This fork of vim-scripts/jsbeautify has a couple small changes to pass [JSLint](http://javascriptlint.com). For a handy JSLint vim-plugin checkout [jslint.vim](hallettj/jslint.vim).
 
 
-The original JS version can be found at: [jsbeautifier.org](http://jsbeautifier.org/)
+The original JS version can be found at: [jsbeautifier.org](http://jsbeautifier.org/)  
 Plus a Node.JS version is here: [js-beautify-node](carlo/js-beatify-node)
 
 usage:
