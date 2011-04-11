@@ -15,9 +15,10 @@ A JS version can be found at:
 
 usage:
 ------
-  <leader>ff
-or
-  bind the g:Jsbeautify() function to any short key you like
+>  `<leader>ff`  
+>or  
+>  bind the `g:Jsbeautify()` function to any short key you like  
+
 
 Changes:
 - It is filetype plugin so it only loads for javascript files. This might not be ideal if you want to reformat .json files or use the javascript.jquery filetype.
