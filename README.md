@@ -9,9 +9,8 @@ It can be helpful when reformatting JSON snippets and compressed javascript.
 This fork of vim-scripts/jsbeautify has a couple small changes.
 
 
-A JS version can be found at:  
-[jsbeautifier.org](http://jsbeautifier.org/)
-
+The original JS version can be found at: [jsbeautifier.org](http://jsbeautifier.org/)
+Plus a Node.JS version is here: carlo/js-beautify-node
 
 usage:
 ------
@@ -21,7 +20,7 @@ or
   bind the `g:Jsbeautify()` function to any short key you like  
 
 
-Changes:
+changes:
 -------
 
 - It is filetype plugin so it only loads for javascript files. This might not be ideal if you want to reformat .json files or use the javascript.jquery filetype.  
