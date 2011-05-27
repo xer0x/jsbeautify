@@ -7,7 +7,7 @@ This fork of vim-scripts/jsbeautify has a couple small changes to pass [JSLint](
 
 
 The original JS version can be found at: [jsbeautifier.org](http://jsbeautifier.org/)  
-Plus a Node.JS version is here: [js-beautify-node](/carlo/js-beatify-node)
+Plus a Node.JS version is here: [js-beautify-node](/carlo/js-beautify-node)
 
 usage:
 ------
