@@ -8,13 +8,18 @@ if !exists("g:Jsbeautify_jslint_whitespace")
 	let g:Jsbeautify_jslint_whitespace = 0
 endif
 
+" set to 1 for spaces as tabs
+if !exists("g:Jsbeautify_jslint_expandtab")
+	let g:Jsbeautify_jslint_expandtab = 0
+endif
+
 function! s:trim_output()
 	while len(s:output) > 0 && (s:output[len(s:output)-1] == " " || s:output[len(s:output)-1] == s:indent_string)
 		call remove(s:output, -1)
 	endwhile
 endfunction
 
-function! s:print_newline(ignore_repeated) 
+function! s:print_newline(ignore_repeated)
 	let s:if_line_flag = 0
 	call s:trim_output()
 	if len(s:output)==0
@@ -88,7 +93,7 @@ function! s:get_next_token()
 	let c = s:input[s:parser_pos]
 	let s:parser_pos += 1
 
-	while s:in_array(c, s:whitespace) 
+	while s:in_array(c, s:whitespace)
 		if s:parser_pos >= len(s:input)
 			return ["", "TK_EOF"]
 		endif
@@ -105,7 +110,7 @@ function! s:get_next_token()
 
 	if s:opt_preserve_newlines
 		if n_newlines > 1
-			for i in [0, 1] 
+			for i in [0, 1]
 				call s:print_newline(i==0)
 			endfor
 		endif
@@ -164,7 +169,7 @@ function! s:get_next_token()
 		let comment = ""
 		if s:input[s:parser_pos] == "*"
 			let s:parser_pos += 1
-			if s:parser_pos < len(s:input) 
+			if s:parser_pos < len(s:input)
 				while !(s:input[s:parser_pos] == "*" && s:parser_pos + 1 < len(s:input) && s:input[s:parser_pos + 1] == "/" && s:parser_pos < len(s:input))
 					let comment .= s:input[s:parser_pos]
 					let s:parser_pos += 1
@@ -292,7 +297,13 @@ function! g:Jsbeautify()
 
 	"let a:options = {}
 	let s:opt_indent_size = 1
-	let s:opt_indent_char = "\t"
+
+	if g:Jsbeautify_jslint_expandtab == 0
+		let s:opt_indent_char = "\t"
+	else
+		let s:opt_indent_char = "  "
+	endif
+
 	let s:opt_preserve_newlines = 1
 	let s:opt_indent_level = 0
 
@@ -419,7 +430,7 @@ function! g:Jsbeautify()
 				if s:last_type == "TK_END_BLOCK"
 					if !s:in_array(tolower(s:token_text), ["else", "catch", "finally"])
 						let s:prefix = "NEWLINE"
-					else 
+					else
 						let s:prefix = "SPACE"
 						call s:print_space()
 					endif
@@ -551,7 +562,7 @@ function! g:Jsbeautify()
 						" space for (;; ++i)
 						let start_delim = 1
 						let end_delim = 0
-					else 
+					else
 						let start_delim = 0
 						let end_delim = 0
 					endif
@@ -560,7 +571,7 @@ function! g:Jsbeautify()
 						" special case handling: if (!a)
 						let start_delim = 0
 						let end_delim = 0
-					else 
+					else
 						let start_delim = 0
 						let end_delim = 1
 					endif
@@ -617,7 +628,7 @@ function! g:Jsbeautify()
 			endif
 		catch /.*/
 			if v:exception != 'jump out'
-				echo "exception caught: " v:exception 
+				echo "exception caught: " v:exception
 			endif
 		endtry
 
@@ -632,3 +643,4 @@ function! g:Jsbeautify()
 endfunction
 
 nnoremap <silent> <leader>ff :call g:Jsbeautify()<cr>
+
