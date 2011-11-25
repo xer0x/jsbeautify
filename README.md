@@ -21,6 +21,6 @@ changes:
 
 - It is filetype plugin so it only loads for javascript files. This might not be ideal if you want to reformat .json files or use the javascript.jquery filetype.  
 - If you use JSLint's strict whitespace rules, then add `let g:Jsbeautify_jslint_whitespace = 1` to your .vimrc to use `function ()` instead of `function()`  
-
+- To expand tabs into spaces use `let g:Jsbeautify_jslint_expandtab = 1`. Thanks to [somethingkindawierd](/somethingkindawierd) for this.
 
 Thanks to aj3423 fork creating the vimscript version of this brilliant reformatter.
