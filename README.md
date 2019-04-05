@@ -24,3 +24,4 @@ changes:
 - To expand tabs into spaces use `let g:Jsbeautify_jslint_expandtab = 1`. Thanks to [somethingkindawierd](/somethingkindawierd) for this.
 
 Thanks to aj3423 fork creating the vimscript version of this brilliant reformatter.
+
